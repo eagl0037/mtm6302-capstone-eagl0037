@@ -3,9 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Space Exploration</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="#favorites">Favorites</a></li>
+            </ul>
+        </nav>
+        <div class="header-content">
+            <h1></p>
+        </div>
+    </header>
     
+    <section class="hero">
+        <div class="hero-content">
+            <div class="stars"></div>
+            <div class="twinkling"></div>
+        </div>
+    </section>
+    
+    <section class="api-form">
+        <h2>Search for NASA Images</h2>
+        <input type="text" id="searchQuery" placeholder="Enter a keyword...">
+        <button onclick="searchNASAImages()">Search</button>
+    </section>
+    
+    <section class="date-selector">
+        <input type="date" id="dateInput">
+        <button onclick="fetchNASAImageByDate()">Find Image</button>
+    </section>
+    
+    <section id="image-display" class="image-display">
+        <h2>NASA Image of the Day</h2>
+        <div class="image-container">
+            <div class="loader" id="imageLoader">
+                <div class="spinner"></div>
+            </div>
+            <img id="nasaImage" src="" alt="NASA Image of the Day">
+            <p id="imageDescription"></p>
+            <button class="favorites-btn">
+                <i class="fas fa-star"></i>
+                <span>Save to Favorites</span>
+            </button>
+        </div>
+    </section>
+    
+    <section id="favorites" class="favorites">
+        <h3>Favorite Images</h3>
+        <p class="no-favorites">You have no favorite images yet. Start exploring!</p>
+        <div class="favorites-container"></div>
+    </section>
+    
+    <section class="explore-section">
+        <h2>Explore the Universe</h2>
+        <div class="explore-content">
+            <img src="explore.png" alt="An image depicting exploration of space">
+            <div class="explore-overlay">
+                <h3>Journey Through the Cosmos</h3>
+                <p>Discover the mysteries of space and time</p>
+            </div>
+        </div>
+    </section>
+    
+    <div id="toast-container"></div>
+    <footer>
+        <p>&copy; 2025 Space Exploration. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const API_KEY = 'DEMO_KEY';
+        
+        function fetchNASAData() {
+            fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('nasaImage').src = data.url;
+                    document.getElementById('imageDescription').textContent = data.explanation;
+                })
+                .catch(error => console.error('Error fetching NASA data:', error));
+        }
+
+        function searchNASAImages() {
+            const query = document.getElementById('searchQuery').value;
+            fetch(`https://images-api.nasa.gov/search?q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.collection.items.length > 0) {
+                        document.getElementById('nasaImage').src = data.collection.items[0].links[0].href;
+                    }
+                })
+                .catch(error => console.error('Error searching NASA images:', error));
+        }
+
+        function fetchNASAImageByDate() {
+            const date = document.getElementById('dateInput').value;
+            fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${API_KEY}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('nasaImage').src = data.url;
+                    document.getElementById('imageDescription').textContent = data.explanation;
+                })
+                .catch(error => console.error('Error fetching image by date:', error));
+        }
+    </script>
 </body>
 </html>
