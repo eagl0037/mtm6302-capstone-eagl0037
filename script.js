@@ -1,3 +1,14 @@
+// Optional: Smooth scroll for anchor links
+document.querySelectorAll('.nav-link').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+
 const API_URL = "https://images-api.nasa.gov/search?q=";
 const DEFAULT_QUERY = "galaxy";
 const form = document.getElementById("search-form");
@@ -27,7 +38,7 @@ function renderImages(items, container, isFavorite) {
       <div class="p-4">
         <h3 class="text-lg font-semibold mb-2">${title}</h3>
         <button class="favorite-btn px-4 py-2 bg-pink-600 hover:bg-pink-800 text-white rounded">
-          ${isFavorite ? "Remove" : "❤ Save"}
+          ${isFavorite ? "Remove" : "Save"}
         </button>
       </div>
     `;
