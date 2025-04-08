@@ -37,7 +37,7 @@ function renderImages(items, container, isFavorite) {
       <img src="${imgUrl}" alt="${title}" class="w-full h-56 object-cover">
       <div class="p-4">
         <h3 class="text-lg font-semibold mb-2">${title}</h3>
-        <button class="favorite-btn px-4 py-2 bg-pink-600 hover:bg-pink-800 text-white rounded">
+        <button class="favorite-btn px-4 py-2 bg-purple-600 hover:bg-purple-800 text-white rounded">
           ${isFavorite ? "Remove" : "Save"}
         </button>
       </div>
