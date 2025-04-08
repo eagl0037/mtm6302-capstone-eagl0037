@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌌 Space Explorer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="bg-black text-white font-sans">
+  <!-- Hero -->
+  <section class="min-h-screen bg-cover bg-center flex flex-col justify-center items-center text-center p-8" style="background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa');">
+    <h1 class="text-5xl font-bold drop-shadow-xl mb-4">🌠 Discover the Universe</h1>
+    <p class="text-xl mb-6 drop-shadow">Search breathtaking NASA images or explore featured shots below.</p>
+    <form id="search-form" class="flex gap-2">
+      <input id="search-input" type="text" placeholder="e.g. galaxy, mars, nebula..." class="px-4 py-2 text-black rounded-md w-64" />
+      <button type="submit" class="bg-purple-600 hover:bg-purple-800 px-4 py-2 rounded">Search</button>
+    </form>
+  </section>
+
+  <!-- Results -->
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <h2 class="text-2xl font-semibold mb-4">🖼 Featured Images</h2>
+    <section id="results" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6"></section>
+
+    <h2 class="text-2xl font-semibold mt-16 mb-4">💖 Your Favorites</h2>
+    <section id="favorites-section" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6"></section>
+  </main>
+
+  <footer class="text-center p-6 bg-gray-900 text-sm">
+    © 2025 Space Explorer
+  </footer>
+</body>
+</html>
