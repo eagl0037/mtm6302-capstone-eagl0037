@@ -31,7 +31,21 @@ function renderImages(items, container, isFavorite) {
         </button>
       </div>
     `;
-
+    async function fetchAPOD() {
+        const res = await fetch("https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY");
+        const data = await res.json();
+      
+        const apodImg = document.getElementById("apod-img");
+        const apodTitle = document.getElementById("apod-title");
+        const apodDate = document.getElementById("apod-date");
+        const apodDesc = document.getElementById("apod-desc");
+      
+        apodImg.src = data.url;
+        apodTitle.textContent = data.title;
+        apodDate.textContent = `Date: ${data.date}`;
+        apodDesc.textContent = data.explanation;
+      }
+      
     card.querySelector(".favorite-btn").addEventListener("click", () => {
       if (isFavorite) {
         favorites = favorites.filter(fav => fav.imgUrl !== imgUrl);
@@ -44,6 +58,42 @@ function renderImages(items, container, isFavorite) {
 
     container.appendChild(card);
   });
+}
+const apodPicker = document.getElementById("apod-date-picker");
+const apodBtn = document.getElementById("fetch-apod-btn");
+const apodContainer = document.getElementById("apod-container");
+
+// Set max date to today
+apodPicker.max = new Date().toISOString().split("T")[0];
+
+// Load today's APOD on page load
+fetchAPOD();
+
+// Fetch APOD for a selected date
+apodBtn.addEventListener("click", () => {
+  const selectedDate = apodPicker.value;
+  if (!selectedDate) return;
+  fetchAPOD(selectedDate);
+});
+
+async function fetchAPOD(date = "") {
+  const url = date
+    ? `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date}`
+    : `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  if (data.media_type !== "image") {
+    apodContainer.innerHTML = "<p class='text-red-400'>No image available for this date.</p>";
+    return;
+  }
+
+  document.getElementById("apod-img").src = data.url;
+  document.getElementById("apod-title").textContent = data.title;
+  document.getElementById("apod-date").textContent = `Date: ${data.date}`;
+  document.getElementById("apod-desc").textContent = data.explanation;
+  apodContainer.classList.remove("hidden");
 }
 
 form.addEventListener("submit", async (e) => {
