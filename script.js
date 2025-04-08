@@ -96,6 +96,7 @@ async function fetchAPOD(date = "") {
   apodContainer.classList.remove("hidden");
 }
 
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const query = searchInput.value.trim() || DEFAULT_QUERY;
