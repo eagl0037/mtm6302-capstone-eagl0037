@@ -75,7 +75,7 @@ function renderImages(items, container, isFavorite) {
       <div class="p-4">
         <h3 class="text-lg font-semibold mb-2">${title}</h3>
         <button class="favorite-btn px-4 py-2 bg-pink-600 hover:bg-pink-800 text-white rounded">
-          ${isFavorite ? "Remove from Favorites" : "❤ Save to Favorites"}
+          ${isFavorite ? "Remove from Favorites" : "❤"}
         </button>
       </div>
     `;
